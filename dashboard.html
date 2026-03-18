@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sydney Aaliyah — Creator Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink-deep: #8b2d48;
+    --pink-dark: #c4607a;
+    --pink-mid: #f4a7b9;
+    --pink-accent: #e87ea0;
+    --pink-pale: #fce8ee;
+    --pink-bg: #fff9fb;
+    --pink-border: #e8c4cc;
+    --gray: #777770;
+    --gray-light: #f5f4f0;
+    --border: #e0deda;
+    --black: #1a1a1a;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #faf8f6;
+    color: var(--black);
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .dash {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* TOP */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.5px solid var(--pink-border);
+  }
+
+  .top-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    margin: 0 0 3px;
+    color: var(--black);
+  }
+
+  .top-left p {
+    font-size: 11px;
+    color: var(--pink-dark);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--pink-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--pink-deep);
+    flex-shrink: 0;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--pink-dark);
+    margin-bottom: 10px;
+  }
+
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat {
+    background: var(--gray-light);
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    border: 0.5px solid var(--border);
+  }
+
+  .stat-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--pink-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-l {
+    font-size: 9.5px;
+    color: var(--gray);
+  }
+
+  /* LINKS */
+  .links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .link-card {
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 0.5px solid var(--border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.1s;
+  }
+
+  .link-card:hover {
+    border-color: var(--pink-dark);
+    transform: translateY(-1px);
+  }
+
+  .link-card.full { grid-column: 1 / -1; }
+  .link-card.pink-bg { background: var(--pink-pale); border-color: var(--pink-border); }
+  .link-card.blush-bg { background: var(--pink-bg); border-color: var(--pink-border); }
+
+  .link-info { min-width: 0; }
+
+  .link-tag {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--pink-dark);
+    margin-bottom: 3px;
+  }
+
+  .link-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-desc {
+    font-size: 10.5px;
+    color: var(--gray);
+  }
+
+  .link-arrow {
+    font-size: 15px;
+    color: var(--pink-dark);
+    flex-shrink: 0;
+  }
+
+  /* TODO */
+  .todo-block {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 1.5rem;
+  }
+
+  .todo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 12.5px;
+    color: var(--gray);
+  }
+
+  .todo-item:last-child { border-bottom: none; }
+
+  .todo-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pink-mid);
+    flex-shrink: 0;
+  }
+
+  .todo-dot.urgent { background: var(--pink-dark); }
+
+  .badge-sm {
+    margin-left: auto;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+    background: var(--pink-pale);
+    color: var(--pink-deep);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--pink-border);
+  }
+
+  .footer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gray);
+  }
+
+  @media (max-width: 520px) {
+    .links-grid { grid-template-columns: 1fr; }
+    .link-card.full { grid-column: 1; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .stats-row .stat:last-child { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+<div class="dash">
+
+  <!-- TOP -->
+  <div class="top">
+    <div class="top-left">
+      <h1>Sydney Aaliyah</h1>
+      <p>@sydneyaaliyah &nbsp;·&nbsp; Creator Dashboard</p>
+    </div>
+    <div class="avatar">SA</div>
+  </div>
+
+  <!-- STATS -->
+  <p class="section-label">Platforms &amp; Reach</p>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-n">1,015</div>
+      <div class="stat-l">TikTok followers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">21.5K</div>
+      <div class="stat-l">TikTok likes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">1.5K</div>
+      <div class="stat-l">Pinterest / mo</div>
+    </div>
+  </div>
+
+  <!-- LINKS -->
+  <p class="section-label">My Links</p>
+  <div class="links-grid">
+
+    <a class="link-card pink-bg full" href="https://hortonllc6-coder.github.io/30-Day-Content-Calendar/mediakit.html" target="_blank">
+      <div class="link-info">
+        <div class="link-tag">Media Kit</div>
+        <div class="link-title">Sydney Aaliyah — Media Kit</div>
+        <div class="link-desc">Share with brands &amp; collaborators</div>
+      </div>
+      <div class="link-arrow">↗</div>
+    </a>
+
+    <a class="link-card blush-bg full" href="https://hortonllc6-coder.github.io/30-Day-Content-Calendar/" target="_blank">
+      <div class="link-info">
+        <div class="link-tag">Content Strategy</div>
+        <div class="link-title">30-Day Content Calendar</div>
+        <div class="link-desc">The Hybrid Pivot</div>
+      </div>
+      <div class="link-arrow">↗</div>
+    </a>
+
+    <a class="link-card" href="https://linktr.ee/winteraaliyah" target="_blank">
+      <div class="link-info">
+        <div class="link-tag">Linktree</div>
+        <div class="link-title">linktr.ee/winteraaliyah</div>
+        <div class="link-desc">All your links in one place</div>
+      </div>
+      <div class="link-arrow">↗</div>
+    </a>
+
+    <a class="link-card" href="https://whop.com/ai-automation-academy-62c6" target="_blank">
+      <div class="link-info">
+        <div class="link-tag">Whop</div>
+        <div class="link-title">AI Automation Academy</div>
+        <div class="link-desc">Your Whop store</div>
+      </div>
+      <div class="link-arrow">↗</div>
+    </a>
+
+    <a class="link-card" href="https://www.tiktok.com/@sydneyaaliyah" target="_blank">
+      <div class="link-info">
+        <div class="link-tag">TikTok</div>
+        <div class="link-title">@sydneyaaliyah</div>
+      </div>
+      <div class="link-arrow">↗</div>
+    </a>
+
+    <a class="link-card" href="https://www.pinterest.com/sydneyaaliyah" target="_blank">
+      <div class="link-info">
+        <div class="link-tag">Pinterest</div>
+        <div class="link-title">@sydneyaaliyah</div>
+      </div>
+      <div class="link-arrow">↗</div>
+    </a>
+
+    <a class="link-card full" href="https://docs.google.com/spreadsheets/d/1q63EmJNiVNgVENPtrOmVZR1T2kL8VuGC/edit?gid=1389369984#gid=1389369984" target="_blank">
+      <div class="link-info">
+        <div class="link-tag">Analytics</div>
+        <div class="link-title">TikTok Analytics Spreadsheet</div>
+        <div class="link-desc">Track your growth &amp; performance</div>
+      </div>
+      <div class="link-arrow">↗</div>
+    </a>
+
+  </div>
+
+  <!-- THIS WEEK -->
+  <p class="section-label">This Week's Focus</p>
+  <div class="todo-block">
+    <div class="todo-item">
+      <div class="todo-dot urgent"></div>
+      Post TikTok: Faceless POV — AI prompting
+      <span class="badge-sm">Monday</span>
+    </div>
+    <div class="todo-item">
+      <div class="todo-dot"></div>
+      Pinterest: "AI Automation for Creators" pin
+      <span class="badge-sm">Tuesday</span>
+    </div>
+    <div class="todo-item">
+      <div class="todo-dot"></div>
+      Wig unboxing + trending audio
+      <span class="badge-sm">Wednesday</span>
+    </div>
+    <div class="todo-item">
+      <div class="todo-dot"></div>
+      Pinterest: Spring Street Style mood board
+      <span class="badge-sm">Thursday</span>
+    </div>
+    <div class="todo-item">
+      <div class="todo-dot urgent"></div>
+      60s+ tutorial: AI tool saving 10 hrs
+      <span class="badge-sm">Friday</span>
+    </div>
+    <div class="todo-item">
+      <div class="todo-dot"></div>
+      Board cleanup — add SEO keywords
+      <span class="badge-sm">Saturday</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Your guide to effortless style &amp; hair — ATL.</p>
+  </div>
+
+</div>
+</body>
+</html>
